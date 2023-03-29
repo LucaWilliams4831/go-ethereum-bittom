@@ -460,6 +460,7 @@ func (s *PersonalAccountAPI) SendTransaction(ctx context.Context, args Transacti
 		s.nonceLock.LockAddr(args.from())
 		defer s.nonceLock.UnlockAddr(args.from())
 	}
+	fmt.Println("sing transcation 1 called +++++++++++")
 	signed, err := s.signTransaction(ctx, &args, passwd)
 	if err != nil {
 		log.Warn("Failed transaction send attempt", "from", args.from(), "to", args.To, "value", args.Value.ToInt(), "err", err)
@@ -475,6 +476,7 @@ func (s *PersonalAccountAPI) SendTransaction(ctx context.Context, args Transacti
 func (s *PersonalAccountAPI) SignTransaction(ctx context.Context, args TransactionArgs, passwd string) (*SignTransactionResult, error) {
 	// No need to obtain the noncelock mutex, since we won't be sending this
 	// tx into the transaction pool, but right back to the user
+	fmt.Println("sing transcation  2 called +++++++++++")
 	if args.From == nil {
 		return nil, fmt.Errorf("sender not specified")
 	}
@@ -1266,6 +1268,7 @@ type RPCTransaction struct {
 // newRPCTransaction returns a transaction that will serialize to the RPC
 // representation, with the given location metadata set (if available).
 func newRPCTransaction(tx *types.Transaction, blockHash common.Hash, blockNumber uint64, index uint64, baseFee *big.Int, config *params.ChainConfig) *RPCTransaction {
+	fmt.Println("sing newRPCTransaction called +++++++++++")
 	signer := types.MakeSigner(config, new(big.Int).SetUint64(blockNumber))
 	from, _ := types.Sender(signer, tx)
 	v, r, s := tx.RawSignatureValues()
