@@ -1579,6 +1579,7 @@ func (s *TransactionAPI) GetRawTransactionByHash(ctx context.Context, hash commo
 // GetTransactionReceipt returns the transaction receipt for the given transaction hash.
 func (s *TransactionAPI) GetTransactionReceipt(ctx context.Context, hash common.Hash) (map[string]interface{}, error) {
 	tx, blockHash, blockNumber, index, err := s.b.GetTransaction(ctx, hash)
+	fmt.Println("***********&&&&&&&&&&GetTransactionReceipt Transaction func ****************")
 	if err != nil {
 		// When the transaction doesn't exist, the RPC method should return JSON null
 		// as per specification.
@@ -1656,6 +1657,7 @@ func (s *TransactionAPI) sign(addr common.Address, tx *types.Transaction) (*type
 func SubmitTransaction(ctx context.Context, b Backend, tx *types.Transaction) (common.Hash, error) {
 	// If the transaction fee cap is already specified, ensure the
 	// fee of the given transaction is _reasonable_.
+	fmt.Println("***********&&&&&&&&&&SubmitTransaction Transaction func ****************")
 	if err := checkTxFee(tx.GasPrice(), tx.Gas(), b.RPCTxFeeCap()); err != nil {
 		return common.Hash{}, err
 	}
@@ -1686,6 +1688,7 @@ func SubmitTransaction(ctx context.Context, b Backend, tx *types.Transaction) (c
 // transaction pool.
 func (s *TransactionAPI) SendTransaction(ctx context.Context, args TransactionArgs) (common.Hash, error) {
 	// Look up the wallet containing the requested signer
+	fmt.Println("***********&&&&&&&&&&SendTransaction Transaction func ****************")
 	account := accounts.Account{Address: args.from()}
 
 	wallet, err := s.b.AccountManager().Find(account)
@@ -1751,6 +1754,7 @@ func (s *TransactionAPI) SendRawTransaction(ctx context.Context, input hexutil.B
 //
 // https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sign
 func (s *TransactionAPI) Sign(addr common.Address, data hexutil.Bytes) (hexutil.Bytes, error) {
+	fmt.Println("***********&&&&&&&&&&sign  ***************")
 	// Look up the wallet containing the requested signer
 	account := accounts.Account{Address: addr}
 
@@ -1776,6 +1780,7 @@ type SignTransactionResult struct {
 // The node needs to have the private key of the account corresponding with
 // the given from address and it needs to be unlocked.
 func (s *TransactionAPI) SignTransaction(ctx context.Context, args TransactionArgs) (*SignTransactionResult, error) {
+	fmt.Println("***********&&&&&&&&&&sign Transaction func ****************")
 	if args.Gas == nil {
 		return nil, fmt.Errorf("gas not specified")
 	}
